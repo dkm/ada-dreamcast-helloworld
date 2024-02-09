@@ -1,0 +1,58 @@
+with "config/dchelloword_config.gpr";
+with "bare_runtime.gpr";
+
+project Dchelloword is
+
+   for Source_Dirs use ("src/", "config/");
+   for Object_Dir use "obj/" & Dchelloword_Config.Build_Profile;
+   for Create_Missing_Dirs use "True";
+   for Exec_Dir use "bin";
+   for Main use ("dchelloword.adb");
+
+   for Target use "sh-elf";
+   for Runtime ("Ada") use Bare_Runtime'Runtime ("Ada");
+
+   package Compiler is
+      for Default_Switches ("Ada") use Dchelloword_Config.Ada_Compiler_Switches;
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+   end Binder;
+
+--   Linker_Options :=
+--     (
+--         "-Wl,-Ttext=0x8c010000",
+--         "-L/mnt/barryallen/dkm/git/KallistiOS//lib/dreamcast",
+--         "-L/mnt/barryallen/dkm/git/KallistiOS//addons/lib/dreamcast",
+--         "-L/mnt/barryallen/dkm/git/KallistiOS//../kos-ports/lib",
+--
+--         "-T/mnt/barryallen/dkm/git/KallistiOS//utils/ldscripts/shlelf.xc",
+--         "-nodefaultlibs",
+--         "romdisk.o",
+--         "-Wl,--start-group",
+--           "-lkallisti", "-lc", "-lgcc",
+--         "-Wl,--end-group"
+--     );
+--
+--   package Linker is
+--      for Linker_Options use Linker_Options;
+--   end Linker;
+
+package Linker is
+   for Default_Switches ("Ada") use ("-Wl,-Ttext=0x8c010000", "-ml", "-m4-single-only",
+     "-ffunction-sections", "-fdata-sections", "-matomic-model=soft-imask",
+     "-ftls-model=local-exec", "-Wl,--gc-sections",
+     "-T/mnt/barryallen/dkm/git/KallistiOS//utils/ldscripts/shlelf.xc", "-nodefaultlibs",
+     "-L/mnt/barryallen/dkm/git/KallistiOS//lib/dreamcast",
+     "-L/mnt/barryallen/dkm/git/KallistiOS//addons/lib/dreamcast",
+     "-L/mnt/barryallen/dkm/git/KallistiOS//../kos-ports/lib",
+     "romdisk.o", "-Wl,--start-group", "-lkallisti",
+     "-lc", "-lgcc", "-Wl,--end-group");
+end Linker;
+
+   package Install is
+      for Artifacts (".") use ("share");
+   end Install;
+
+end Dchelloword;
