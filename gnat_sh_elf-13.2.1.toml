@@ -1,0 +1,20 @@
+
+name = "gnat_sh_elf"
+version = "13.2.1"
+provides = ["gnat=13.2.1"]
+description = "The GNAT Ada compiler - SH cross-compiler"
+maintainers = ["dkm@kataplop.net"]
+maintainers-logins = ["dkm"]
+licenses = "GPL-3.0-or-later AND GPL-3.0-or-later WITH GCC-exception-3.1"
+
+auto-gpr-with = false
+
+[configuration]
+disabled = true
+
+[environment]
+PATH.prepend = "${CRATE_ROOT}/bin"
+
+[origin."case(os)".linux."case(host-arch)".x86-64]
+url = "http://localhost:8001/gnat-sh-elf-linux64-13.2.0-1.tar.gz"
+hashes = ["sha256:a4e0da8290e5389ec9f83e363224739c4167a6e5002916d9c62eb3e727037c26"]
