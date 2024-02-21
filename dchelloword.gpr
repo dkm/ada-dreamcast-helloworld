@@ -18,14 +18,14 @@ project Dchelloword is
    for Runtime ("Ada") use Bare_Runtime'Runtime ("Ada");
 
    Common_Flags := ("-O2",
-        "-fomit-frame-pointer", "-fno-builtin",
+        "-fomit-frame-pointer",
         "-m4-single-only", "-ml",
         "-ffunction-sections",
         "-fdata-sections", "-matomic-model=soft-imask",
         "-ftls-model=local-exec", "-Wall", "-g"
    );
 
-   C_Only_Flags := ("-I/mnt/barryallen/dkm/git/KallistiOS//include",
+   C_Only_Flags := ( "-fno-builtin", "-I/mnt/barryallen/dkm/git/KallistiOS//include",
         "-I/mnt/barryallen/dkm/git/KallistiOS//kernel/arch/dreamcast/include",
         "-I/mnt/barryallen/dkm/git/KallistiOS//addons/include",
         "-I/mnt/barryallen/dkm/git/KallistiOS//../kos-ports/include",
