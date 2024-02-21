@@ -8,8 +8,6 @@ with arch_types_h; use arch_types_h;
 with dc_minifont_h; use dc_minifont_h;
 
 procedure Dchelloword is
---   type Uint16_T is mod 2 ** 16;
-
    --  Dreamcast VRAM is 8M and abstracted as uint16
    type Vram_T is array (Storage_Offset range 0 .. (8 * 1024 * 1024) / 2)
      of aliased Unsigned_16;
@@ -24,14 +22,10 @@ procedure Dchelloword is
    Vram_Data : aliased Vram_T;
    for Vram_Data'Address use Vram_S;
 
-
    Vram_Data_2 : aliased Vram_2_T;
    for Vram_Data_2'Address use Vram_S;
 
-   -- Offset : Storage_Offset := (640 * BFONT_HEIGHT + BFONT_THIN_WIDTH * 2);
-
    C : Unsigned_16;
-   --  pragma Import (Intrinsic, Shift_Left);
    Ignore : Interfaces.C.int;
 
 begin
@@ -49,16 +43,6 @@ begin
 
    Ignore := minifont_draw_str(Vram_Data_2 (Storage_Offset (80*640+20))'Access, 640,
       New_String ("And Ada is older than this Dreamcast!!"));
-
-   --  bfont_set_encoding (BFONT_CODE_ISO8859_1);
-   --  bfont_draw_str (
-   --    Vram_Data (Offset)'Address,
-   --    --  Vram_S + Offset,
-   --    -- b=0xa5007830
-   --    640,
-   --    1,
-   --    New_String ("Test of basic ASCII")
-   --  );
 
    while True loop
       null;
