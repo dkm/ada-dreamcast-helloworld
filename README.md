@@ -19,7 +19,7 @@
 
 ### regular
 
-- clone `bare_runtime` (should be renamed `kallistios-runtime`):
+- clone `bare_runtime` (should be renamed `kallistios-runtime` at some point):
 ``` sh
 $ cd $SOME_ROOT && git clone -b dkm/sh2_support https://github.com/dkm/bare_runtime.git
 ```
@@ -27,12 +27,17 @@ $ cd $SOME_ROOT && git clone -b dkm/sh2_support https://github.com/dkm/bare_runt
 ``` sh
 $ cd $SOME_ROOT && git clone https://github.com/dkm/dchelloword.git
 ```
+- generate bindings and texture files
+
+``` sh
+$ gen.sh
+```
 - build using a recent enough `gprbuild` (18 from debian is too old, 22 is known
   to work) with your KallistiOS toolchain in the `PATH`:
 ``` sh
 $ cd $SOME_ROOT/dchelloword/ && gprbuild  -f  dchelloword.gpr -XRUNTIME_BUILD=Production
 ```
-- the result is in `bin/dchelloword`
+- the result is in `bin/dchelloword` and `bin/gldemo2`
 
 ## Debug
 
