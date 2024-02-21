@@ -4,10 +4,11 @@ pragma Style_Checks (Off);
 pragma Warnings (Off, "-gnatwu");
 
 with Interfaces.C; use Interfaces.C;
+with System;
 
 package stddef_h is
 
-   --  unsupported macro: NULL ((void *)0)
+   --  unsupported macro: NULL __null
    --  arg-macro: procedure offsetof (TYPE, MEMBER)
    --    __builtin_offsetof (TYPE, MEMBER)
   -- Copyright (C) 1989-2023 Free Software Foundation, Inc.
@@ -101,10 +102,6 @@ package stddef_h is
   --   since it no longer defines _BSD_RUNE_T_ yet still desires to export
   --   rune_t in some cases...  
 
-   subtype wchar_t is long;  -- /mnt/barryallen/dkm/dc/sh-elf/lib/gcc/sh-elf/13.2.0/include/stddef.h:329
-
-   subtype wint_t is unsigned;  -- /mnt/barryallen/dkm/dc/sh-elf/lib/gcc/sh-elf/13.2.0/include/stddef.h:359
-
   --  The references to _GCC_PTRDIFF_T_, _GCC_SIZE_T_, and _GCC_WCHAR_T_
   --    are probably typos and should be removed before 2.8 is released.   
 
@@ -115,17 +112,19 @@ package stddef_h is
   --   as great as that of any standard type not using alignment
   --   specifiers.   
 
+   type max_align_t is record
+      uu_max_align_ll : aliased Long_Long_Integer;  -- /mnt/barryallen/dkm/dc/sh-elf/lib/gcc/sh-elf/13.2.0/include/stddef.h:426
+      uu_max_align_ld : aliased long_double;  -- /mnt/barryallen/dkm/dc/sh-elf/lib/gcc/sh-elf/13.2.0/include/stddef.h:427
+   end record
+   with Convention => C_Pass_By_Copy;  -- /mnt/barryallen/dkm/dc/sh-elf/lib/gcc/sh-elf/13.2.0/include/stddef.h:436
+
   -- _Float128 is defined as a basic type, so max_align_t must be
   --     sufficiently aligned for it.  This code must work in C++, so we
   --     use __float128 here; that is only available on some
   --     architectures, but only on i386 is extra alignment needed for
   --     __float128.   
 
-   type max_align_t is record
-      uu_max_align_ll : aliased Long_Long_Integer;  -- /mnt/barryallen/dkm/dc/sh-elf/lib/gcc/sh-elf/13.2.0/include/stddef.h:426
-      uu_max_align_ld : aliased long_double;  -- /mnt/barryallen/dkm/dc/sh-elf/lib/gcc/sh-elf/13.2.0/include/stddef.h:427
-   end record
-   with Convention => C_Pass_By_Copy;  -- /mnt/barryallen/dkm/dc/sh-elf/lib/gcc/sh-elf/13.2.0/include/stddef.h:436
+   subtype nullptr_t is System.Address;  -- /mnt/barryallen/dkm/dc/sh-elf/lib/gcc/sh-elf/13.2.0/include/stddef.h:443
 
   -- ??? This doesn't define __STDC_VERSION_STDDEF_H__ yet.   
 end stddef_h;

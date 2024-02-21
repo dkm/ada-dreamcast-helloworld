@@ -4,20 +4,55 @@ project Dchelloword is
    type Build_Profile_Kind is ("release", "validation", "development");
    Build_Profile : Build_Profile_Kind := "release";
 
-   for Languages use ("Ada");
+   --  for Languages use ("Ada", "C", "Assem");
+   for Languages use ("Ada", "Asm");
+   --  for Source_Dirs use ("src/", "src/binding", "src/c");
 
-   for Source_Dirs use ("src/", "src/binding");
+   for Source_Dirs use ("src/", "src-bindings/", "src-gen");
 
    for Object_Dir use "obj/" & Build_Profile;
    for Create_Missing_Dirs use "True";
    for Exec_Dir use "bin";
-   for Main use ("dchelloword.adb");
+   -- for Main use ("dchelloword.adb", "gldemo.adb", "gldemo2.adb");
+
+   for Main use ("gldemo2.adb");
 
    for Target use "sh-elf";
    for Runtime ("Ada") use Bare_Runtime'Runtime ("Ada");
 
    package Compiler is
-      for Default_Switches ("Ada") use ("-gnat2022");
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnatdF", "--save-temps",
+"-O2",
+        "-fomit-frame-pointer", "-fno-builtin",
+        "-m4-single-only", "-ml",
+        "-ffunction-sections",
+        "-fdata-sections", "-matomic-model=soft-imask",
+        "-ftls-model=local-exec", "-Wall", "-g"
+
+);
+
+      for Default_Switches ("Asm") use ("-O2",
+        "-fomit-frame-pointer", "-fno-builtin",
+--        "-Wa,-I,/mnt/barryallen/dkm/git/dchelloword/src-gen",
+        "-m4-single-only", "-ml",
+        "-ffunction-sections",
+        "-fdata-sections", "-matomic-model=soft-imask",
+        "-ftls-model=local-exec", "-I/mnt/barryallen/dkm/git/KallistiOS//include",
+        "-I/mnt/barryallen/dkm/git/KallistiOS//kernel/arch/dreamcast/include",
+        "-I/mnt/barryallen/dkm/git/KallistiOS//addons/include",
+        "-I/mnt/barryallen/dkm/git/KallistiOS//../kos-ports/include",
+        "-D_arch_dreamcast", "-D_arch_sub_pristine", "-Wall", "-g");
+
+      for Default_Switches ("C") use ("-O2",
+        "-fomit-frame-pointer", "-fno-builtin",
+        "-m4-single-only", "-ml",
+        "-ffunction-sections",
+        "-fdata-sections", "-matomic-model=soft-imask",
+        "-ftls-model=local-exec", "-I/mnt/barryallen/dkm/git/KallistiOS//include",
+        "-I/mnt/barryallen/dkm/git/KallistiOS//kernel/arch/dreamcast/include",
+        "-I/mnt/barryallen/dkm/git/KallistiOS//addons/include",
+        "-I/mnt/barryallen/dkm/git/KallistiOS//../kos-ports/include",
+        "-D_arch_dreamcast", "-D_arch_sub_pristine", "-Wall", "-g");
    end Compiler;
 
    package Binder is
@@ -34,7 +69,7 @@ project Dchelloword is
         "-L/mnt/barryallen/dkm/git/KallistiOS//lib/dreamcast",
         "-L/mnt/barryallen/dkm/git/KallistiOS//addons/lib/dreamcast",
         "-L/mnt/barryallen/dkm/git/KallistiOS//../kos-ports/lib",
-        "romdisk.o", "-Wl,--start-group", "-lkallisti",
+        "romdisk.o",  "-lGL", "-lm", "-lpcx", "-lkosutils", "-Wl,--start-group", "-lkallisti",
         "-lc", "-lgcc", "-Wl,--end-group"
       );
    end Linker;

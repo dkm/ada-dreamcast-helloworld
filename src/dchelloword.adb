@@ -45,7 +45,10 @@ begin
    end loop;
 
    Ignore := minifont_draw_str(Vram_Data_2 (Storage_Offset (20*640+20))'Access, 640,
-      New_String ("Hello, World for Ada!!"));
+      New_String ("Hello, World. This is Ada!!"));
+
+   Ignore := minifont_draw_str(Vram_Data_2 (Storage_Offset (80*640+20))'Access, 640,
+      New_String ("And Ada is older than this Dreamcast!!"));
 
    --  bfont_set_encoding (BFONT_CODE_ISO8859_1);
    --  bfont_draw_str (
