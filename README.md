@@ -8,7 +8,7 @@
 * ~~Need to fake the Alire index to provide the `sh-elf`~~ 
 * ~~Need to sprinkle configuration in gpr files~~
 * ~~Need to link by hand because gprbuild adds unwanted options~~
-* Need to clone `bare_runtime`
+* Need to clone [KallistiOS Ada Runtime](https://github.com/dkm/kallistios_ada_runtime)
 * There's a typo, it's Hello WorLd, not Hello Word... who cares /o\
 
 ## Instructions
@@ -26,9 +26,9 @@
 $ cd $SOME_ROOT && git clone -b dkm/ada_support https://github.com/dkm/KallistiOS.git
 ```
 
-- clone `bare_runtime` (should be renamed `kallistios-runtime` at some point):
+- clone [KallistiOS Ada Runtime](https://github.com/dkm/kallistios_ada_runtime):
 ``` sh
-$ cd $SOME_ROOT && git clone -b dkm/sh2_support https://github.com/dkm/bare_runtime.git
+$ cd $SOME_ROOT && git clone https://github.com/dkm/kallistios_ada_runtime.git
 ```
 - clone this repository:
 ``` sh
