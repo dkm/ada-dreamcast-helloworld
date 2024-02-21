@@ -1,11 +1,12 @@
--- with dc_biosfont_h;  use dc_biosfont_h;
-with dc_minifont_h; use dc_minifont_h;
+
 with System;
 with System.Storage_Elements; use System.Storage_Elements;
 with Interfaces.C; use Interfaces.C;
 with Interfaces.C.Strings; use Interfaces.C.Strings;
 with Interfaces; use Interfaces;
+
 with arch_types_h; use arch_types_h;
+with dc_minifont_h; use dc_minifont_h;
 
 procedure Dchelloword is
 --   type Uint16_T is mod 2 ** 16;

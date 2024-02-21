@@ -4,55 +4,37 @@ project Dchelloword is
    type Build_Profile_Kind is ("release", "validation", "development");
    Build_Profile : Build_Profile_Kind := "release";
 
-   --  for Languages use ("Ada", "C", "Assem");
    for Languages use ("Ada", "Asm");
-   --  for Source_Dirs use ("src/", "src/binding", "src/c");
 
-   for Source_Dirs use ("src/", "src-bindings/", "src-gen");
+   for Source_Dirs use ("src/", "src-bindings/", "src-gen/");
 
    for Object_Dir use "obj/" & Build_Profile;
    for Create_Missing_Dirs use "True";
    for Exec_Dir use "bin";
-   -- for Main use ("dchelloword.adb", "gldemo.adb", "gldemo2.adb");
 
-   for Main use ("gldemo2.adb");
+   for Main use ("gldemo2.adb", "dchelloword.adb");
 
    for Target use "sh-elf";
    for Runtime ("Ada") use Bare_Runtime'Runtime ("Ada");
 
-   package Compiler is
-      for Default_Switches ("Ada") use ("-gnat2022", "-gnatdF", "--save-temps",
-"-O2",
+   Common_Flags := ("-O2",
         "-fomit-frame-pointer", "-fno-builtin",
         "-m4-single-only", "-ml",
         "-ffunction-sections",
         "-fdata-sections", "-matomic-model=soft-imask",
         "-ftls-model=local-exec", "-Wall", "-g"
+   );
 
-);
-
-      for Default_Switches ("Asm") use ("-O2",
-        "-fomit-frame-pointer", "-fno-builtin",
---        "-Wa,-I,/mnt/barryallen/dkm/git/dchelloword/src-gen",
-        "-m4-single-only", "-ml",
-        "-ffunction-sections",
-        "-fdata-sections", "-matomic-model=soft-imask",
-        "-ftls-model=local-exec", "-I/mnt/barryallen/dkm/git/KallistiOS//include",
+   C_Only_Flags := ("-I/mnt/barryallen/dkm/git/KallistiOS//include",
         "-I/mnt/barryallen/dkm/git/KallistiOS//kernel/arch/dreamcast/include",
         "-I/mnt/barryallen/dkm/git/KallistiOS//addons/include",
         "-I/mnt/barryallen/dkm/git/KallistiOS//../kos-ports/include",
-        "-D_arch_dreamcast", "-D_arch_sub_pristine", "-Wall", "-g");
+        "-D_arch_dreamcast", "-D_arch_sub_pristine");
 
-      for Default_Switches ("C") use ("-O2",
-        "-fomit-frame-pointer", "-fno-builtin",
-        "-m4-single-only", "-ml",
-        "-ffunction-sections",
-        "-fdata-sections", "-matomic-model=soft-imask",
-        "-ftls-model=local-exec", "-I/mnt/barryallen/dkm/git/KallistiOS//include",
-        "-I/mnt/barryallen/dkm/git/KallistiOS//kernel/arch/dreamcast/include",
-        "-I/mnt/barryallen/dkm/git/KallistiOS//addons/include",
-        "-I/mnt/barryallen/dkm/git/KallistiOS//../kos-ports/include",
-        "-D_arch_dreamcast", "-D_arch_sub_pristine", "-Wall", "-g");
+   package Compiler is
+      for Default_Switches ("Ada") use Common_Flags & ("-gnat2022", "-gnatdF", "--save-temps");
+      for Default_Switches ("Asm") use Common_Flags;
+      for Default_Switches ("C") use Common_Flags & C_Only_Flags;
    end Compiler;
 
    package Binder is

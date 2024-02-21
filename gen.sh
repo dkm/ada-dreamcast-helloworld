@@ -13,6 +13,7 @@ FLAGS="-x c++ \
 OTHER_FLAGS="-C  -fdump-ada-spec"
 
 SOURCE_HEADERS=(
+    "$KOS_BASE/kernel/arch/dreamcast/include/dc/minifont.h"
     "$KOS_PORTS/include/GL/gl.h"
     "$KOS_PORTS/include/GL/glkos.h"
     "$KOS_PORTS/include/GL/glu.h"
