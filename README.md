@@ -4,7 +4,7 @@
 ## Kludge collection
 
 * Need a patched version of KallistiOS
-* Need to copy romdisk.o from somewhere else (e.g. `KallistiOS/examples/dreamcast/hello/`)
+* ~~Need to copy romdisk.o from somewhere else (e.g. `KallistiOS/examples/dreamcast/hello/`)~~
 * ~~Need to fake the Alire index to provide the `sh-elf`~~ 
 * ~~Need to sprinkle configuration in gpr files~~
 * ~~Need to link by hand because gprbuild adds unwanted options~~
@@ -12,13 +12,6 @@
 * There's a typo, it's Hello WorLd, not Hello Word... who cares /o\
 
 ## Instructions
-
-### kludge: romdisk.o
-
-- build the `hello` example
-- copy the `romdisk.o` into the target example (`cp $ROOT/KallistiOS/examples/dreamcast/hello/romdisk.o .`)
-
-### regular
 
 - clone `KallistiOS` from my fork (until it is merge, if merged)
 
