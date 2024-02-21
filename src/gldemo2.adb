@@ -1,17 +1,16 @@
 with Interfaces.C; use Interfaces.C;
 with Interfaces.C.Strings; use Interfaces.C.Strings;
 with Interfaces; use Interfaces;
-with arch_types_h; use arch_types_h;
 
+with arch_types_h; use arch_types_h;
 with gl_gl_h; use gl_gl_h;
 with gl_glkos_h; use gl_glkos_h;
 with gl_glu_h; use gl_glu_h;
 with gl_glext_h; use gl_glext_h;
 
-with toto;
-
 procedure Gldemo2 is
 
+   --  VQ 512x512 byte array
    type Texture_512x512 is array (Integer range 1 .. 67584) of uint8;
 
    Texture_Dc_Data : Texture_512x512
@@ -241,12 +240,12 @@ begin
        glKosSwapBuffers;
    end loop;
 
-   --  -- Clean up our textures
-   --  --  glDeleteTextures(1, &mut tex_claw);
-   --  --  glDeleteTextures(1, &mut tex_dc);
-   --  --  glDeleteTextures(1, &mut tex_dcwiki);
-   --  --  glDeleteTextures(1, &mut tex_gcc);
-   --  --  glDeleteTextures(1, &mut tex_kos);
-   --  --  glDeleteTextures(1, &mut tex_rust);
+   -- Clean up our textures
+   glDeleteTextures(1, Texture_Claw'Access);
+   glDeleteTextures(1, Texture_Dc'Access);
+   glDeleteTextures(1, Texture_Dcwiki'Access);
+   glDeleteTextures(1, Texture_Gcc'Access);
+   glDeleteTextures(1, Texture_Kos'Access);
+   glDeleteTextures(1, Texture_Rust'Access);
 
 end Gldemo2;
