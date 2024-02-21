@@ -3,6 +3,7 @@
 
 ## Kludge collection
 
+* Need a patched version of KallistiOS
 * Need to copy romdisk.o from somewhere else (e.g. `KallistiOS/examples/dreamcast/hello/`)
 * ~~Need to fake the Alire index to provide the `sh-elf`~~ 
 * ~~Need to sprinkle configuration in gpr files~~
@@ -18,6 +19,12 @@
 - copy the `romdisk.o` into the target example (`cp $ROOT/KallistiOS/examples/dreamcast/hello/romdisk.o .`)
 
 ### regular
+
+- clone `KallistiOS` from my fork (until it is merge, if merged)
+
+``` sh
+$ cd $SOME_ROOT && git clone -b dkm/ada_support https://github.com/dkm/KallistiOS.git
+```
 
 - clone `bare_runtime` (should be renamed `kallistios-runtime` at some point):
 ``` sh
