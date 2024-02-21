@@ -18,17 +18,17 @@ procedure Gldemo2 is
        External_Name => "tex_dc";
    Texture_Dc : aliased unsigned := 0;
 
-   Texture_Claw_Data : Texture_512x512
+   Texture_Ada1_Data : Texture_512x512
      with Import,
        Convention => C,
-       External_Name => "tex_claw";
-   Texture_Claw : aliased unsigned := 0;
+       External_Name => "tex_ada1";
+   Texture_Ada1 : aliased unsigned := 0;
 
-   Texture_Rust_Data : Texture_512x512
+   Texture_Ada_Data : Texture_512x512
      with Import,
        Convention => C,
-       External_Name => "tex_rust";
-   Texture_Rust : aliased unsigned := 0;
+       External_Name => "tex_ada";
+   Texture_Ada : aliased unsigned := 0;
 
    Texture_Dcwiki_Data : Texture_512x512
      with Import,
@@ -79,12 +79,12 @@ begin
    glEnable(GL_DEPTH_TEST);
    glDepthFunc(GL_LEQUAL);
 
-   glGenTextures(1, Texture_Claw'Access);
-   glBindTexture(GL_TEXTURE_2D, Texture_Claw);
+   glGenTextures(1, Texture_Ada1'Access);
+   glBindTexture(GL_TEXTURE_2D, Texture_Ada1);
    glCompressedTexImage2DARB
      (GL_TEXTURE_2D, 0, GL_COMPRESSED_RGB_565_VQ_TWID_KOS,
-      512, 512, 0, Texture_Claw_Data'Size,
-      Texture_Claw_Data'Address);
+      512, 512, 0, Texture_Ada1_Data'Size,
+      Texture_Ada1_Data'Address);
 
    glGenTextures (1, Texture_Dc'Access);
    glBindTexture (GL_TEXTURE_2D, Texture_Dc);
@@ -114,12 +114,12 @@ begin
       512, 512, 0, Texture_Kos_Data'Size,
       Texture_Kos_Data'Address);
 
-   glGenTextures(1, Texture_Rust'Access);
-   glBindTexture(GL_TEXTURE_2D, Texture_Rust);
+   glGenTextures(1, Texture_Ada'Access);
+   glBindTexture(GL_TEXTURE_2D, Texture_Ada);
    glCompressedTexImage2DARB
      (GL_TEXTURE_2D, 0, GL_COMPRESSED_RGB_565_VQ_TWID_KOS,
-      512, 512, 0, Texture_Rust_Data'Size,
-      Texture_Rust_Data'Address);
+      512, 512, 0, Texture_Ada_Data'Size,
+      Texture_Ada_Data'Address);
 
    loop
        glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
@@ -131,7 +131,7 @@ begin
        glRotatef(Z_Rot, 0.0, 0.0, 1.0);
 
        --  Front face
-       glBindTexture(GL_TEXTURE_2D, Texture_Claw);
+       glBindTexture(GL_TEXTURE_2D, Texture_Ada1);
        glBegin(GL_QUADS);
 
        glColor3f(1.0, 1.0, 1.0);
@@ -214,7 +214,7 @@ begin
        glEnd;
 
        --  Left face
-       glBindTexture(GL_TEXTURE_2D, Texture_Rust);
+       glBindTexture(GL_TEXTURE_2D, Texture_Ada);
        glBegin(GL_QUADS);
 
        glColor3f(1.0, 0.0, 0.0);
@@ -240,11 +240,11 @@ begin
    end loop;
 
    -- Clean up our textures
-   glDeleteTextures(1, Texture_Claw'Access);
+   glDeleteTextures(1, Texture_Ada1'Access);
    glDeleteTextures(1, Texture_Dc'Access);
    glDeleteTextures(1, Texture_Dcwiki'Access);
    glDeleteTextures(1, Texture_Gcc'Access);
    glDeleteTextures(1, Texture_Kos'Access);
-   glDeleteTextures(1, Texture_Rust'Access);
+   glDeleteTextures(1, Texture_Ada'Access);
 
 end Gldemo2;

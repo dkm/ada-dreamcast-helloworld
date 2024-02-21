@@ -36,10 +36,10 @@ popd
 TEX_FILES=(
     "res/tex_dc.jpg"
     "res/tex_gcc.jpg"
-    "res/tex_claw.jpg"
+    "res/tex_ada.jpg"
     "res/tex_dcwiki.jpg"
     "res/tex_kos.jpg"
-    "res/tex_rust.jpg"
+    "res/tex_ada1.jpg"
 )
 
 "$KOS_BASE/utils/vqenc/vqenc" -t -v ${TEX_FILES[*]}

@@ -1,4 +1,4 @@
-with "../bare_runtime/bare_runtime.gpr";
+with "../kallistios_ada_runtime/bare_runtime.gpr";
 
 project Dchelloword is
    type Build_Profile_Kind is ("release", "validation", "development");
