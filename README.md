@@ -18,7 +18,9 @@
 ``` sh
 $ cd $SOME_ROOT && git clone -b dkm/ada_support https://github.com/dkm/KallistiOS.git
 ```
-
+- build the toolchain (see KallistiOS instructions). All following commands are
+  expected to be within a correct environment (i.e. the `environ.sh` has been
+  sourced).
 - clone [KallistiOS Ada Runtime](https://github.com/dkm/kallistios_ada_runtime):
 ``` sh
 $ cd $SOME_ROOT && git clone https://github.com/dkm/kallistios_ada_runtime.git
