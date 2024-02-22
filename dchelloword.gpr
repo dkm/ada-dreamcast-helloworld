@@ -1,11 +1,8 @@
-with "../kallistios_ada_runtime/bare_runtime.gpr";
+with "../kallistios_ada_runtime/kallistios_runtime.gpr";
 
 project Dchelloword is
    type Build_Profile_Kind is ("release", "validation", "development");
    Build_Profile : Build_Profile_Kind := "release";
-
-   type SH_Precision_Mode_Kind is ("m4-single-only", "m4-single");
-   SH_Precision_Mode := external ("KOS_SH4_PRECISION", "m4-single-only");
 
    KOS_Base := external ("KOS_BASE");
 
@@ -24,27 +21,19 @@ project Dchelloword is
    for Main use ("gldemo2.adb", "dchelloword.adb");
 
    for Target use "sh-elf";
-   for Runtime ("Ada") use Bare_Runtime'Runtime ("Ada");
+   for Runtime ("Ada") use KallistiOS_Runtime'Runtime ("Ada");
 
    Common_Flags := (
-      "-fomit-frame-pointer",
-      SH_Precision_Mode,
-      "-ml",
       "-ffunction-sections",
       "-fdata-sections",
-      "-matomic-model=soft-imask",
-      "-ftls-model=local-exec",
       "-Wall"
    );
 
    C_Only_Flags := (
-      "-fno-builtin",
       "-I" & KOS_Base & "/include",
       "-I" & KOS_Base & "/kernel/arch/dreamcast/include",
       "-I" & KOS_Base & "/addons/include",
-      "-I" & KOS_Base & "/../kos-ports/include",
-      "-D_arch_dreamcast",
-      "-D_arch_sub_pristine"
+      "-I" & KOS_Base & "/../kos-ports/include"
    );
 
    package Compiler is
@@ -59,22 +48,13 @@ project Dchelloword is
 
    package Linker is
       for Default_Switches ("Ada") use Common_Flags & (
-        "-Wl,-Ttext=0x8c010000",
         "-Wl,--gc-sections",
-        "-T" & KOS_Base & "/utils/ldscripts/shlelf.xc",
-        "-nodefaultlibs",
         "-L" & KOS_Base & "/lib/dreamcast",
         "-L" & KOS_Base & "/addons/lib/dreamcast",
         "-L" & KOS_Base & "/../kos-ports/lib",
         "src-gen/romdisk.o",
         "-lGL",
-        "-lm",
-        "-lkosutils",
-        "-Wl,--start-group",
-          "-lkallisti",
-          "-lc",
-          "-lgcc",
-        "-Wl,--end-group"
+        "-lm"
       );
    end Linker;
 
