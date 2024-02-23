@@ -16,12 +16,19 @@ FLAGS=(
 )
 
 OTHER_FLAGS=(
-    "-C"
+##    "-C"
     "-fdump-ada-spec"
 )
 
 SOURCE_HEADERS=(
+    ## For font
     "$KOS_BASE/kernel/arch/dreamcast/include/dc/minifont.h"
+
+    ## For controller
+    "$KOS_BASE/kernel/arch/dreamcast/include/dc/maple.h"
+    "$KOS_BASE/kernel/arch/dreamcast/include/dc/maple/controller.h"
+
+    ## For OpenGL
     "$SCRIPT_DIR/res/placeholder.h"
     "$KOS_PORTS/include/GL/glkos.h"
     "$KOS_PORTS/include/GL/glu.h"
@@ -31,6 +38,16 @@ pushd "$SCRIPT_DIR/src-bindings"
 for header in "${SOURCE_HEADERS[@]}"; do
     $CC ${FLAGS[*]} ${OTHER_FLAGS[*]} "$header"
 done
+
+# remove line pointers to original files so we can create generic patches.
+for spec in *.ads; do
+    sed -e "s@--.*$KOS_BASE.*@@g" -i "$spec"
+done
+
+for patch in ../res/*_h.patch; do
+    patch -p1 < "$patch"
+done
+
 popd
 
 TEX_FILES=(

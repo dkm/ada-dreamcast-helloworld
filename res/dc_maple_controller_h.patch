@@ -1,0 +1,16 @@
+--- a/dc_maple_controller_h.ads	2024-02-23 08:50:50.297780015 +0100
++++ b/dc_maple_controller_h.ads	2024-02-23 08:50:52.537847352 +0100
+@@ -93,10 +93,11 @@
+    with Convention => C_Pass_By_Copy,
+         Pack => True,
+         Alignment => 4;
+-   type anon_anon_4 (discr : unsigned := 0) is record
++   type anon_anon_4 (discr : Boolean := True) is record
+       case discr is
+-         when 0 =>
++         when True =>
+             buttons : aliased sys_ustdint_h.uint32_t;  
++         when False =>
+             field_2 : aliased anon_anon_5;
+       end case;
+    end record

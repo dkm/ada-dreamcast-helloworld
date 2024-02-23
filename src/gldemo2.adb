@@ -1,11 +1,14 @@
 with Interfaces.C; use Interfaces.C;
+with Interfaces.C.Extensions; use Interfaces.C.Extensions;
 with Interfaces; use Interfaces;
-
+with System;
 with arch_types_h; use arch_types_h;
 with gl_gl_h; use gl_gl_h;
 with gl_glkos_h; use gl_glkos_h;
 with gl_glu_h; use gl_glu_h;
 with gl_glext_h; use gl_glext_h;
+with dc_maple_h; use dc_maple_h;
+with dc_maple_controller_h; use dc_maple_controller_h;
 
 --  This is mostly an Ada port of the new cargo-cube Rust example:
 --  https://github.com/darcagn/rust-for-dreamcast/tree/master/examples/cargo-cube
@@ -67,6 +70,26 @@ procedure Gldemo2 is
    X_Rot : Float := 0.0;
    Y_Rot : Float := 0.0;
    Z_Rot : Float := 0.0;
+
+   Maple_Dev : access maple_device_t := maple_enum_type (0, MAPLE_FUNC_CONTROLLER);
+
+   function Is_Start_Pressed return Boolean is
+      State_Addr : System.Address;
+
+   begin
+       State_Addr := maple_dev_status(Maple_Dev);
+
+       declare
+          State : cont_state_t;
+          for State'Address use State_Addr;
+       begin
+          if State.parent.field_2.start = 1 then
+             return True;
+          end if;
+       end;
+
+       return False;
+   end Is_Start_Pressed;
 
 begin
    glKosInit;
@@ -242,6 +265,8 @@ begin
        Z_Rot := Z_Rot + 1.8;
 
        glKosSwapBuffers;
+
+       exit when Is_Start_Pressed;
    end loop;
 
    -- Clean up our textures
