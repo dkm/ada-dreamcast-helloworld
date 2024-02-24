@@ -29,17 +29,10 @@ project Dchelloword is
       "-Wall"
    );
 
-   C_Only_Flags := (
-      "-I" & KOS_Base & "/include",
-      "-I" & KOS_Base & "/kernel/arch/dreamcast/include",
-      "-I" & KOS_Base & "/addons/include",
-      "-I" & KOS_Base & "/../kos-ports/include"
-   );
-
    package Compiler is
       for Default_Switches ("Ada") use Common_Flags & ("-gnat2022", "-gnatdF");
       for Default_Switches ("Asm") use Common_Flags;
-      for Default_Switches ("C") use Common_Flags & C_Only_Flags;
+      for Default_Switches ("C") use Common_Flags;
    end Compiler;
 
    package Binder is
@@ -49,12 +42,7 @@ project Dchelloword is
    package Linker is
       for Default_Switches ("Ada") use Common_Flags & (
         "-Wl,--gc-sections",
-        "-L" & KOS_Base & "/lib/dreamcast",
-        "-L" & KOS_Base & "/addons/lib/dreamcast",
-        "-L" & KOS_Base & "/../kos-ports/lib",
-        "src-gen/romdisk.o",
-        "-lGL",
-        "-lm"
+        "src-gen/romdisk.o"
       );
    end Linker;
 
