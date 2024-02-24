@@ -77,4 +77,11 @@ done)>> "$TEXT_ASM"
 
 "$KOS_BASE/utils/genromfs/genromfs" -f obj/romdisk.img -d romdisk -v -x .svn -x .keepme
 "$KOS_BASE/utils/bin2o/bin2o" obj/romdisk.img romdisk obj/romdisk_tmp.o
-sh-elf-gcc  -o src-gen/romdisk.o -r obj/romdisk_tmp.o -L"$KOS_BASE/lib/dreamcast" -L"$KOS_BASE/addons/lib/dreamcast" -L"$KOS_BASE/../kos-ports/lib" -Wl,--whole-archive -lromdiskbase
+
+sh-elf-gcc \
+    -o src-gen/romdisk.o \
+    -r obj/romdisk_tmp.o \
+    -L"$KOS_BASE/lib/dreamcast" \
+    -L"$KOS_BASE/addons/lib/dreamcast" \
+    -L"$KOS_BASE/../kos-ports/lib" \
+    -Wl,--whole-archive -lromdiskbase
