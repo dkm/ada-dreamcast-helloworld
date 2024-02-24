@@ -75,7 +75,8 @@ echo ".section .rodata" > "$TEXT_ASM"
     echo ".size _$T_NAME, . - _$T_NAME"
 done)>> "$TEXT_ASM"
 
-"$KOS_BASE/utils/genromfs/genromfs" -f obj/romdisk.img -d romdisk -v -x .svn -x .keepme
+mkdir -p obj/romdisk
+"$KOS_BASE/utils/genromfs/genromfs" -f obj/romdisk.img -d obj/romdisk -v -x .svn -x .keepme
 "$KOS_BASE/utils/bin2o/bin2o" obj/romdisk.img romdisk obj/romdisk_tmp.o
 
 sh-elf-gcc \

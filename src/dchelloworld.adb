@@ -9,7 +9,7 @@ with Interfaces; use Interfaces;
 with arch_types_h; use arch_types_h;
 with dc_minifont_h; use dc_minifont_h;
 
-procedure Dchelloword is
+procedure Dchelloworld is
 
    --  A frame buffer stored in row-major for 640x480.
    type Frame_Buffer is array
@@ -58,4 +58,4 @@ begin
       null;
    end loop;
 
-end Dchelloword;
+end Dchelloworld;

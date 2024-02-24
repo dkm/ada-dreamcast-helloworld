@@ -1,6 +1,6 @@
 with "../kallistios_ada_runtime/kallistios_runtime.gpr";
 
-project Dchelloword is
+project Dchelloworld is
    type Build_Profile_Kind is ("release", "validation", "development");
    Build_Profile : Build_Profile_Kind := "release";
 
@@ -18,7 +18,7 @@ project Dchelloword is
    for Create_Missing_Dirs use "True";
    for Exec_Dir use "bin";
 
-   for Main use ("gldemo2.adb", "dchelloword.adb");
+   for Main use ("gldemo2.adb", "dchelloworld.adb");
 
    for Target use "sh-elf";
    for Runtime ("Ada") use KallistiOS_Runtime'Runtime ("Ada");
@@ -50,4 +50,4 @@ project Dchelloword is
       for Artifacts (".") use ("share");
    end Install;
 
-end Dchelloword;
+end Dchelloworld;

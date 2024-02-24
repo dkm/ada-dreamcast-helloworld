@@ -28,7 +28,7 @@ $ cd $SOME_ROOT && git clone https://github.com/dkm/kallistios_ada_runtime.git
 ```
 - Clone this repository:
 ``` sh
-$ cd $SOME_ROOT && git clone https://github.com/dkm/dchelloword.git
+$ cd $SOME_ROOT && git clone https://github.com/dkm/dchelloworld.git
 ```
 - Generate bindings and texture files
 
@@ -37,7 +37,7 @@ $ gen.sh
 ```
 - Build the applications
 ``` sh
-$ cd $SOME_ROOT/dchelloword/ && gprbuild  -f  dchelloword.gpr -XRUNTIME_BUILD=Production
+$ cd $SOME_ROOT/dchelloworld/ && gprbuild  -f  dchelloworld.gpr -XRUNTIME_BUILD=Production
 ```
 
 Execute with `lxdream` if you don't have a DreamCast (like me!).
@@ -51,13 +51,13 @@ $ lxdream-nitro  -u -e ./bin/gldemo2
 - run the emulator
 
 ``` sh
-$ lxdream-nitro --gdb-sh4=1235 -n  -u -e ./bin/dchelloword
+$ lxdream-nitro --gdb-sh4=1235 -n  -u -e ./bin/dchelloworld
 ```
 
 - attach `gdb`
 
 ``` sh
-$ gdb-multiarch  --eval "target remote localhost:1235" bin/dchelloword
+$ gdb-multiarch  --eval "target remote localhost:1235" bin/dchelloworld
 ```
 
-Break on `init` or `__ada_dchelloword`.
+Break on `init` or `__ada_dchelloworld`.
