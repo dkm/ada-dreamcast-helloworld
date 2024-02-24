@@ -1,45 +1,50 @@
 # Ada hello world on DreamCast
 
+Thanks to [rust-for-dreamcast](https://github.com/darcagn/rust-for-dreamcast/)!
+The rotating cube has been directly ported from the Rust example.
 
-## Kludge collection
+## Requirements
+* Ada-enabled [KallistiOS toolchain](https://github.com/dkm/KallistiOS)
+* [KallistiOS Ada Runtime](https://github.com/dkm/kallistios_ada_runtime)
+* gprbuild (18 from debian is too old, 22 is known to work). Use
+  [GNAT-FSF-builds
+  releases](https://github.com/alire-project/GNAT-FSF-builds/releases/tag/gprbuild-22.0.0-1)
+  for example.
 
-* Need a patched version of KallistiOS
-* ~~Need to copy romdisk.o from somewhere else (e.g. `KallistiOS/examples/dreamcast/hello/`)~~
-* ~~Need to fake the Alire index to provide the `sh-elf`~~ 
-* ~~Need to sprinkle configuration in gpr files~~
-* ~~Need to link by hand because gprbuild adds unwanted options~~
-* Need to clone [KallistiOS Ada Runtime](https://github.com/dkm/kallistios_ada_runtime)
-* There's a typo, it's Hello WorLd, not Hello Word... who cares /o\
-
-## Instructions
-
-- clone `KallistiOS` from my fork (until it is merge, if merged)
-
+## Building instructions
+### Toolchain
+To build the KallistiOS toolchain, you need a matching GNAT compiler. As of this
+writting, GCC 13.2 with Ada enabled should be OK.
 ``` sh
 $ cd $SOME_ROOT && git clone -b dkm/ada_support https://github.com/dkm/KallistiOS.git
 ```
-- build the toolchain (see KallistiOS instructions). All following commands are
-  expected to be within a correct environment (i.e. the `environ.sh` has been
-  sourced).
-- clone [KallistiOS Ada Runtime](https://github.com/dkm/kallistios_ada_runtime):
+
+And follow the regular KallistiOS build instructions.
+
+### The sample Hello world + OpenGL example
+- Clone [KallistiOS Ada Runtime](https://github.com/dkm/kallistios_ada_runtime):
 ``` sh
 $ cd $SOME_ROOT && git clone https://github.com/dkm/kallistios_ada_runtime.git
 ```
-- clone this repository:
+- Clone this repository:
 ``` sh
 $ cd $SOME_ROOT && git clone https://github.com/dkm/dchelloword.git
 ```
-- generate bindings and texture files
+- Generate bindings and texture files
 
 ``` sh
 $ gen.sh
 ```
-- build using a recent enough `gprbuild` (18 from debian is too old, 22 is known
-  to work) with your KallistiOS toolchain in the `PATH`:
+- Build the applications
 ``` sh
 $ cd $SOME_ROOT/dchelloword/ && gprbuild  -f  dchelloword.gpr -XRUNTIME_BUILD=Production
 ```
-- the result is in `bin/dchelloword` and `bin/gldemo2`
+
+Execute with `lxdream` if you don't have a DreamCast (like me!).
+``` sh
+$ lxdream-nitro  -u -e ./bin/gldemo2
+```
+![Rotating cube with Ada logo.](./res/cube.gif)
 
 ## Debug
 
