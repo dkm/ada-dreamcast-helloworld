@@ -30,8 +30,6 @@ with dc_maple_controller_h; use dc_maple_controller_h;
 
 --  This is mostly an Ada port of the new cargo-cube Rust example:
 --  https://github.com/darcagn/rust-for-dreamcast/tree/master/examples/cargo-cube
---
---  The controller handling hasn't been ported and the program never ends.
 
 procedure Gldemo2 is
 
