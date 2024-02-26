@@ -28,7 +28,7 @@ $ cd $SOME_ROOT && git clone https://github.com/dkm/kallistios_ada_runtime.git
 ```
 - Clone this repository:
 ``` sh
-$ cd $SOME_ROOT && git clone https://github.com/dkm/dchelloworld.git
+$ cd $SOME_ROOT && git clone https://github.com/dkm/ada-dreamcast-helloworld.git
 ```
 - Generate bindings and texture files
 
