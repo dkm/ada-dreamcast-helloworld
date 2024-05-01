@@ -13,8 +13,9 @@ The rotating cube has been directly ported from the Rust example.
 
 ## Building instructions
 ### Toolchain
-To build the KallistiOS toolchain, you need a matching GNAT compiler. As of this
-writting, GCC 13.2 with Ada enabled should be OK.
+To build the KallistiOS toolchain, you need a matching GNAT compiler. More
+specifically, if you're attempting to build GCC-14 for the Dreamcast, you must
+use GCC-14 on the host along with the GNAT compiler and tools at version 14. 
 ``` sh
 $ cd $SOME_ROOT && git clone -b dkm/ada_support https://github.com/dkm/KallistiOS.git
 ```
